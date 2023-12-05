@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LoginButton">
+        <attr name="android:layout_width" format="dimension" />
+        <attr name="android:layout_height" format="dimension" />
+        <attr name="android:font" format="string"/>
+        <attr name="android:textSize" format="dimension"/>
+        <attr name="icon_custom_width" format="dimension" />
+        <attr name="icon_custom_height" format="dimension" />
+    </declare-styleable>
+</resources>

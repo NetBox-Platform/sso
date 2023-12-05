@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/net_box_button"
+    style="@style/ButtonWithImage"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:background="@drawable/button_background"
+    android:clickable="true"
+    android:duplicateParentState="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/netbox_button_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_10dp"
+        android:duplicateParentState="true"
+        app:srcCompat="@drawable/netbox_vector" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/netbox_button_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:duplicateParentState="true"
+        android:text="@string/login_button_text"
+        android:textColor="@color/button_text_selector" />
+
+</LinearLayout>
