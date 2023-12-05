@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="login_button_width">141.5dp</dimen>
+    <dimen name="login_button_height">46dp</dimen>
+    <dimen name="login_button_padding_top">10dp</dimen>
+    <dimen name="login_button_padding_bottom">10dp</dimen>
+    <dimen name="login_button_padding_start">20dp</dimen>
+    <dimen name="login_button_padding_end">10dp</dimen>
+    <dimen name="netbox_vector_height">16dp</dimen>
+    <dimen name="netbox_vector_width">16dp</dimen>
+    <dimen name="netbox_vector_padding_start">6dp</dimen>
+    <dimen name="_13dp">10dp</dimen>
+    <dimen name="_10dp">8dp</dimen>
+</resources>
