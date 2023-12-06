@@ -9,8 +9,10 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import ir.net_box.sso.LAUNCHER_PACKAGE_NAME
 import ir.net_box.sso.core.NetboxClient
+import ir.net_box.sso.core.authintication.Authentication
 import ir.net_box.sso.widget.LoginButton
 
 class SampleActivity1 : AppCompatActivity() {
@@ -61,13 +63,22 @@ class SampleActivity1 : AppCompatActivity() {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or FLAG_ACTIVITY_SINGLE_TOP
             component = ComponentName.unflattenFromString("$launcherPackageName/$activityName")
         }
-        loginButton.setOnClickListener {
-            NetboxClient.startLauncherSignIn(this) {
-                // If you are using 'registerForActivityResult,' make use of the following code
-                try {
-                    resultLauncher.launch(intent)
-                } catch (e: ActivityNotFoundException) {
-                    Log.e("activityNotFound", "onCreate: ${e.message}")
+        /**
+         * You can use this code to check whether the launcher is installed
+         * and then display the login button if it's not installed
+         **/
+        if (Authentication.isLauncherInstalledOnDevice(this)) {
+            loginButton.apply {
+                isVisible = true
+                setOnClickListener {
+                    NetboxClient.startLauncherSignIn(this@SampleActivity1) {
+                        // If you are using 'registerForActivityResult,' make use of the following code
+                        try {
+                            resultLauncher.launch(intent)
+                        } catch (e: ActivityNotFoundException) {
+                            Log.e("activityNotFound", "onCreate: ${e.message}")
+                        }
+                    }
                 }
             }
         }
