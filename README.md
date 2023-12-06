@@ -28,18 +28,26 @@ New gradle:
         repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
         repositories {
     			...
+       			mavenCentral()
     			maven { url 'https://jitpack.io' }
         }
     }
 
 Step 2. Add the dependency
-
+	dependencyResolutionManagement {
+		repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+		repositories {
+			...
+			mavenCentral()
+			maven { url 'https://jitpack.io' }
+		}
+	}
 	dependencies {
-	        implementation ''
+	        implementation 'com.github.NetBox-Platform:sso:0.0.1'
 	}
 	
 ### How to use
-Full examples availble in links below:
+Full examples available in the links below:
 
 [Sample1](https://github.com/NetBox-Platform/sso/blob/main/sample/src/main/java/ir/net_box/sso_sample/SampleActivity1.kt) (Using registerForActivityResult)
 
