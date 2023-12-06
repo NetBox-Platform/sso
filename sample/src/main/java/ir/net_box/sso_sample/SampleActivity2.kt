@@ -7,8 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.core.view.isVisible
 import ir.net_box.sso.LAUNCHER_PACKAGE_NAME
 import ir.net_box.sso.core.NetboxClient
+import ir.net_box.sso.core.authintication.Authentication
 import ir.net_box.sso.widget.LoginButton
 
 class SampleActivity2 : AppCompatActivity() {
@@ -32,13 +34,22 @@ class SampleActivity2 : AppCompatActivity() {
             component = ComponentName.unflattenFromString("$launcherPackageName/$activityName")
         }
 
-        // If you are using 'startActivityForResult' make use of the following code
-        loginButton.setOnClickListener {
-            NetboxClient.startLauncherSignIn(this) {
-                try {
-                    startActivityForResult(intent, REQ_CODE)
-                } catch (e: ActivityNotFoundException) {
-                    Log.e("activityNotFound", "onCreate: ${e.message}")
+        /**
+         * You can use this code to check whether the launcher is installed
+         * and then display the login button if it's not installed
+         **/
+        if (Authentication.isLauncherInstalledOnDevice(this)) {
+            loginButton.apply {
+                isVisible = true
+                setOnClickListener {
+                    NetboxClient.startLauncherSignIn(this@SampleActivity2) {
+                        // If you are using 'startActivityForResult' make use of the following code
+                        try {
+                            startActivityForResult(intent, REQ_CODE)
+                        } catch (e: ActivityNotFoundException) {
+                            Log.e("activityNotFound", "onCreate: ${e.message}")
+                        }
+                    }
                 }
             }
         }
@@ -64,6 +75,16 @@ class SampleActivity2 : AppCompatActivity() {
                             this@SampleActivity2, it, Toast.LENGTH_SHORT
                         ).show()
                     }
+                    /**
+                     * for each status code:
+                     * 1 -> "ok" : Represents a successful response code.
+                     * 2 -> "invalid package name" : Indicates an invalid package name.
+                     * 3 -> "invalid key", // Indicates an invalid public key.
+                     * 4 -> "not access to the kid profile", // Indicates no access to the kid profile.
+                     * 5 -> "not access due to not having a mobile number", // Indicates no access due to missing mobile number.
+                     * 6 -> "rejected", // Indicates a rejection(cancellation).
+                     * 7 -> "not access", // Indicates general access denial.
+                     **/
                     getIntExtra(STATUS_CODE_ARG_KEY, -1).let {
                         Toast.makeText(
                             this@SampleActivity2, "$it", Toast.LENGTH_SHORT
