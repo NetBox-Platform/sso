@@ -34,14 +34,7 @@ New gradle:
     }
 
 Step 2. Add the dependency
-	dependencyResolutionManagement {
-		repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-		repositories {
-			...
-			mavenCentral()
-			maven { url 'https://jitpack.io' }
-		}
-	}
+
 	dependencies {
 	        implementation 'com.github.NetBox-Platform:sso:0.0.1'
 	}
