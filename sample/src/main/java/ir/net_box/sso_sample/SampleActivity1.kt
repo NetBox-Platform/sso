@@ -48,6 +48,16 @@ class SampleActivity1 : AppCompatActivity() {
                                     this@SampleActivity1, it, Toast.LENGTH_SHORT
                                 ).show()
                             }
+                            /**
+                             * for each status code:
+                             * 1 -> "ok" : Represents a successful response code.
+                             * 2 -> "invalid package name" : Indicates an invalid package name.
+                             * 3 -> "invalid key", // Indicates an invalid public key.
+                             * 4 -> "not access to the kid profile", // Indicates no access to the kid profile.
+                             * 5 -> "not access due to not having a mobile number", // Indicates no access due to missing mobile number.
+                             * 6 -> "rejected", // Indicates a rejection(cancellation).
+                             * 7 -> "not access", // Indicates general access denial.
+                             **/
                             getIntExtra(STATUS_CODE_ARG_KEY, -1).let {
                                 Toast.makeText(
                                     this@SampleActivity1, "$it", Toast.LENGTH_SHORT
