@@ -12,6 +12,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Sso"
+rootProject.name = "sso"
 include ':sample'
 include ':sso'
