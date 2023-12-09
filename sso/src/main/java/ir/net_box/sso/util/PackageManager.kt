@@ -27,13 +27,13 @@ val PackageInfo.versionCodeSDKAware: String
 
 internal fun getPackageInfo(context: Context, packageName: String, flags: Int = 0) = try {
     val packageManager = context.packageManager
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        packageManager.getPackageInfo(
-            packageName, PackageManager.PackageInfoFlags.of(flags.toLong())
-        )
-    } else {
+//    if (Build.VERSION.SDK_INT >= 33) {
+//        packageManager.getPackageInfo(
+//            packageName, PackageManager.PackageInfoFlags.of(flags.toLong())
+//        )
+//    } else {
         @Suppress("DEPRECATION") packageManager.getPackageInfo(packageName, flags)
-    }
+//    }
 } catch (e: Exception) {
     Log.d("getPackageInfoError", "getPackageInfo: ${e.message}")
     null
@@ -48,18 +48,18 @@ internal fun getAppName(context: Context) =
 internal fun PackageInfo.appName(context: Context, locale: Locale): String? = try {
     val applicationInfo: ApplicationInfo
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        applicationInfo = context.packageManager.getApplicationInfo(
-            packageName,
-            PackageManager.ApplicationInfoFlags.of(0)
-        )
-    } else {
+//    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//        applicationInfo = context.packageManager.getApplicationInfo(
+//            packageName,
+//            PackageManager.ApplicationInfoFlags.of(0)
+//        )
+//    } else {
         @Suppress("DEPRECATION")
         applicationInfo = context.packageManager.getApplicationInfo(
             packageName,
             PackageManager.GET_META_DATA
         )
-    }
+//    }
     val configuration = Configuration()
     configuration.setLocale(locale)
 
