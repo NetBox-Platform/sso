@@ -9,8 +9,10 @@ import android.util.Log
 import android.widget.Toast
 import androidx.core.view.isVisible
 import ir.net_box.sso.LAUNCHER_PACKAGE_NAME
+import ir.net_box.sso.SSOConfirmationStatus
 import ir.net_box.sso.core.NetboxClient
 import ir.net_box.sso.core.authintication.Authentication
+import ir.net_box.sso.findSSOConfirmationStatusByCode
 import ir.net_box.sso.widget.LoginButton
 
 class SampleActivity2 : AppCompatActivity() {
@@ -75,20 +77,17 @@ class SampleActivity2 : AppCompatActivity() {
                             this@SampleActivity2, it, Toast.LENGTH_SHORT
                         ).show()
                     }
-                    /**
-                     * for each status code:
-                     * 1 -> "ok" : Represents a successful response code.
-                     * 2 -> "invalid package name" : Indicates an invalid package name.
-                     * 3 -> "invalid key", // Indicates an invalid public key.
-                     * 4 -> "not access to the kid profile", // Indicates no access to the kid profile.
-                     * 5 -> "not access due to not having a mobile number", // Indicates no access due to missing mobile number.
-                     * 6 -> "rejected", // Indicates a rejection(cancellation).
-                     * 7 -> "not access", // Indicates general access denial.
-                     **/
                     getIntExtra(STATUS_CODE_ARG_KEY, -1).let {
-                        Toast.makeText(
-                            this@SampleActivity2, "$it", Toast.LENGTH_SHORT
-                        ).show()
+                        when (findSSOConfirmationStatusByCode(it)) {
+                            SSOConfirmationStatus.OK -> TODO()
+                            SSOConfirmationStatus.PACKAGE_NAME_NOT_FOUND -> TODO()
+                            SSOConfirmationStatus.PUBLIC_KEY_INVALID -> TODO()
+                            SSOConfirmationStatus.KID_PROFILE_NOT_ACCESS -> TODO()
+                            SSOConfirmationStatus.REGULAR_PROFILE_WITH_OUT_PHONE_NUMBER -> TODO()
+                            SSOConfirmationStatus.REJECT -> TODO()
+                            SSOConfirmationStatus.NOT_ACCESS -> TODO()
+                            else -> TODO()
+                        }
                     }
                 }
             }
