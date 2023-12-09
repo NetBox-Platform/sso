@@ -23,6 +23,7 @@ class SampleActivity2 : AppCompatActivity() {
 
         loginButton = findViewById(R.id.sso_login_button)
 
+        val intent = Intent()
         val launcherPackageName = LAUNCHER_PACKAGE_NAME
         val activityName = "$launcherPackageName.ui.activities.SsoActivity"
         val currentAppPackageName = this.packageName
@@ -30,7 +31,6 @@ class SampleActivity2 : AppCompatActivity() {
         intent.apply {
             // The app package should be sent along with an intent for identity verification
             putExtra(PACKAGE_NAME_ARG_KEY, currentAppPackageName)
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
             component = ComponentName.unflattenFromString("$launcherPackageName/$activityName")
         }
 

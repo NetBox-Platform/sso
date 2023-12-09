@@ -3,7 +3,6 @@ package ir.net_box.sso_sample
 import android.content.ActivityNotFoundException
 import android.content.ComponentName
 import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -24,6 +23,7 @@ class SampleActivity1 : AppCompatActivity() {
 
         loginButton = findViewById(R.id.sso_login_button)
 
+        val intent = Intent()
         val launcherPackageName = LAUNCHER_PACKAGE_NAME
         val activityName = "$launcherPackageName.ui.activities.SsoActivity"
         val currentAppPackageName = this.packageName
@@ -70,7 +70,6 @@ class SampleActivity1 : AppCompatActivity() {
         intent.apply {
             // The app package should be sent along with an intent for identity verification
             putExtra(PACKAGE_NAME_ARG_KEY, currentAppPackageName)
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or FLAG_ACTIVITY_SINGLE_TOP
             component = ComponentName.unflattenFromString("$launcherPackageName/$activityName")
         }
         /**
