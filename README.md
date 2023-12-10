@@ -1,3 +1,6 @@
+[![](https://jitpack.io/v/NetBox-Platform/sso.svg)](https://jitpack.io/#NetBox-Platform/sso)
+
+
 # NetboxSSO (Single sign-on by Netbox)
 "Single sign-on SDK for using in third party apps, which provides login their users with Netbox"
 
