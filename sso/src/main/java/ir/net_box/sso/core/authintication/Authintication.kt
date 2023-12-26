@@ -3,7 +3,7 @@ package ir.net_box.sso.core.authintication
 import android.content.Context
 import android.widget.Toast
 import ir.net_box.sso.LAUNCHER_PACKAGE_NAME
-import ir.net_box.sso.MINIMUM_SUPPORT_LAUNCHER
+import ir.net_box.sso.MINIMUM_LAUNCHER_VERSION_SUPPORT
 import ir.net_box.sso.NET_STORE_PACKAGE_NAME
 import ir.net_box.sso.security.Security
 import ir.net_box.sso.util.getLauncherVersion
@@ -16,13 +16,8 @@ object Authentication {
         getPackageInfo(context, LAUNCHER_PACKAGE_NAME) != null &&
                 Security.verifyLauncherIsInstalled(context)
 
-    fun isNeededToUpdateLauncher(context: Context): Boolean {
-        val needToUpdateForAuth = getLauncherVersion(context)
-        if (needToUpdateForAuth < MINIMUM_SUPPORT_LAUNCHER) {
-            return true
-        }
-        return false
-    }
+    fun isNeededToUpdateLauncher(context: Context) =
+        getLauncherVersion(context) < MINIMUM_LAUNCHER_VERSION_SUPPORT
 
     /**
      * This function, after verifying that the launcher doesn't require an update and that
