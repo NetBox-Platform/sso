@@ -59,6 +59,7 @@ class SampleActivity1 : AppCompatActivity() {
                                     SSOConfirmationStatus.REGULAR_PROFILE_WITH_OUT_PHONE_NUMBER -> TODO()
                                     SSOConfirmationStatus.REJECT -> TODO()
                                     SSOConfirmationStatus.NOT_ACCESS -> TODO()
+                                    SSOConfirmationStatus.BACK_PRESSED -> TODO()
                                     else -> TODO()
                                 }
                             }
