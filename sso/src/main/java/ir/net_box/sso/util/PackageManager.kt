@@ -9,7 +9,6 @@ import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.net.Uri
 import android.util.Log
-import android.widget.Toast
 import androidx.core.content.pm.PackageInfoCompat
 import ir.net_box.sso.*
 import java.util.Locale
@@ -78,6 +77,15 @@ fun getLauncherVersion(context: Context): Int {
     return longVersionCode?.toInt() ?:-1
 }
 
+fun getNetstoreVersion(context: Context): Int {
+    val longVersionCode =
+        getPackageInfo(context, NET_STORE_PACKAGE_NAME)?.let {
+            PackageInfoCompat.getLongVersionCode(
+                it
+            )
+        }
+    return longVersionCode?.toInt() ?:-1
+}
 /**
  * This function takes the launcher package and fetches its latest version
  * from the store using a deep link
@@ -92,10 +100,24 @@ fun updateLauncherToLatestVersion(context: Context) {
         browserIntent.setPackage(NET_STORE_PACKAGE_NAME)
         context.startActivity(browserIntent)
     } catch (e: ActivityNotFoundException) {
-        Toast.makeText(
-            context,
-            "${e.message}",
-            Toast.LENGTH_LONG
-        ).show()
+        e.printStackTrace()
+    }
+}
+
+/**
+ * This function takes the Netstore package and fetches its latest version
+ * from the store using a deep link
+ */
+fun updateNetstoreToLatestVersion(context: Context) {
+    val browserIntent: Intent?
+    try {
+        browserIntent = Intent(
+            Intent.ACTION_VIEW,
+            Uri.parse("https://www.store.net_box.ir/store=$NET_STORE_PACKAGE_NAME")
+        )
+        browserIntent.setPackage(NET_STORE_PACKAGE_NAME)
+        context.startActivity(browserIntent)
+    } catch (e: ActivityNotFoundException) {
+        e.printStackTrace()
     }
 }
