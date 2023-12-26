@@ -8,22 +8,11 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.net.Uri
-import android.os.Build
 import android.util.Log
 import android.widget.Toast
-import ir.net_box.sso.LAUNCHER_PACKAGE_NAME
-import ir.net_box.sso.NET_STORE_PACKAGE_NAME
-import java.util.*
-
-val PackageInfo.versionCodeSDKAware: String
-    get() {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            versionName
-        } else {
-            @Suppress("DEPRECATION")
-            versionCode.toString()
-        }
-    }
+import androidx.core.content.pm.PackageInfoCompat
+import ir.net_box.sso.*
+import java.util.Locale
 
 internal fun getPackageInfo(context: Context, packageName: String, flags: Int = 0) = try {
     val packageManager = context.packageManager
@@ -79,8 +68,14 @@ internal fun PackageInfo.appName(context: Context, locale: Locale): String? = tr
     applicationInfo.loadLabel(context.packageManager).toString()
 }
 
-fun getLauncherVersion(context: Context): String {
-    return getPackageInfo(context, LAUNCHER_PACKAGE_NAME)?.versionCodeSDKAware ?: "-1"
+fun getLauncherVersion(context: Context): Int {
+    val longVersionCode =
+        getPackageInfo(context, LAUNCHER_PACKAGE_NAME)?.let {
+            PackageInfoCompat.getLongVersionCode(
+                it
+            )
+        }
+    return longVersionCode?.toInt() ?:-1
 }
 
 /**
