@@ -8,7 +8,7 @@ object NetboxClient : Client {
 
     override fun startLauncherSignIn(context: Context, onSsoButtonClicked: () -> Unit) {
 
-        if (Authentication.isLauncherInstalledOnDevice(context)) {
+        if (Authentication.isLauncherInstalled(context)) {
             if (!Authentication.isNeededToUpdateLauncher(context)) {
                 onSsoButtonClicked()
             } else {

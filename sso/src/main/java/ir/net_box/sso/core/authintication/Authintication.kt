@@ -12,7 +12,7 @@ import ir.net_box.sso.util.updateLauncherToLatestVersion
 
 object Authentication {
 
-    fun isLauncherInstalledOnDevice(context: Context): Boolean =
+    fun isLauncherInstalled(context: Context): Boolean =
         getPackageInfo(context, LAUNCHER_PACKAGE_NAME) != null &&
                 Security.verifyLauncherIsInstalled(context)
 

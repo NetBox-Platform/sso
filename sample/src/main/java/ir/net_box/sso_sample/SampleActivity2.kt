@@ -40,7 +40,7 @@ class SampleActivity2 : AppCompatActivity() {
          * You can use this code to check whether the launcher is installed
          * and then display the login button if it's not installed
          **/
-        if (Authentication.isLauncherInstalledOnDevice(this)) {
+        if (Authentication.isLauncherInstalled(this)) {
             loginButton.apply {
                 isVisible = true
                 setOnClickListener {
