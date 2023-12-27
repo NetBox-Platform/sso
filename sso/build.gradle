@@ -59,7 +59,7 @@ afterEvaluate {
 
                 groupId = 'com.github.NetBox-Platform'
                 artifactId = 'netbox_sso'
-                version = '0.0.1'
+                version = '0.0.5'
             }
         }
     }
