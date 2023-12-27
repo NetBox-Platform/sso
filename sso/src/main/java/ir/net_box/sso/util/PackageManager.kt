@@ -5,7 +5,6 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.util.Log
 import androidx.core.content.pm.PackageInfoCompat
 import ir.net_box.sso.LAUNCHER_PACKAGE_NAME
 import ir.net_box.sso.NET_STORE_PACKAGE_NAME
