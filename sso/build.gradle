@@ -4,6 +4,9 @@ plugins {
     id 'maven-publish'
 }
 
+def netboxProperties = new Properties()
+file("netbox.properties").withInputStream { netboxProperties.load(it) }
+
 android {
     namespace 'ir.net_box.sso'
     compileSdk 28
@@ -14,6 +17,10 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes.each {
+        it.buildConfigField 'String', 'NETBOX_CERTIFICATE', "\"${netboxProperties.getProperty('netboxHexCertificate')}\""
     }
 
     buildTypes {
@@ -52,7 +59,7 @@ afterEvaluate {
 
                 groupId = 'com.github.NetBox-Platform'
                 artifactId = 'netbox_sso'
-                version = '0.0.1'
+                version = '0.0.5'
             }
         }
     }
