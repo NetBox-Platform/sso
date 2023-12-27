@@ -12,7 +12,7 @@ import androidx.core.view.isVisible
 import ir.net_box.sso.LAUNCHER_PACKAGE_NAME
 import ir.net_box.sso.SSOConfirmationStatus
 import ir.net_box.sso.core.NetboxClient
-import ir.net_box.sso.core.authintication.Authentication
+import ir.net_box.sso.core.AppManager
 import ir.net_box.sso.findSSOConfirmationStatusByCode
 import ir.net_box.sso.widget.LoginButton
 
@@ -76,7 +76,7 @@ class SampleActivity1 : AppCompatActivity() {
          * You can use this code to check whether the launcher is installed
          * and then display the login button if it's not installed
          **/
-        if (Authentication.isLauncherInstalled(this)) {
+        if (AppManager.isNetboxLauncherInstalled(this)) {
             loginButton.apply {
                 isVisible = true
                 setOnClickListener {

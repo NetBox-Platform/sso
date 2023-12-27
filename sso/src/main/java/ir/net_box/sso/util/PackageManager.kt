@@ -1,16 +1,14 @@
 package ir.net_box.sso.util
 
-import android.content.ActivityNotFoundException
 import android.content.Context
-import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.net.Uri
 import android.util.Log
 import androidx.core.content.pm.PackageInfoCompat
-import ir.net_box.sso.*
+import ir.net_box.sso.LAUNCHER_PACKAGE_NAME
+import ir.net_box.sso.NET_STORE_PACKAGE_NAME
 import java.util.Locale
 
 internal fun getPackageInfo(context: Context, packageName: String, flags: Int = 0) = try {
@@ -33,7 +31,7 @@ internal fun getAppName(context: Context) =
         Locale("fa")
     )
 
-internal fun PackageInfo.appName(context: Context, locale: Locale): String? = try {
+private fun PackageInfo.appName(context: Context, locale: Locale): String? = try {
     val applicationInfo: ApplicationInfo
 
 //    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -85,39 +83,4 @@ fun getNetstoreVersion(context: Context): Int {
             )
         }
     return longVersionCode?.toInt() ?:-1
-}
-/**
- * This function takes the launcher package and fetches its latest version
- * from the store using a deep link
- */
-fun updateLauncherToLatestVersion(context: Context) {
-    val browserIntent: Intent?
-    try {
-        browserIntent = Intent(
-            Intent.ACTION_VIEW,
-            Uri.parse("https://www.store.net_box.ir/store=$LAUNCHER_PACKAGE_NAME")
-        )
-        browserIntent.setPackage(NET_STORE_PACKAGE_NAME)
-        context.startActivity(browserIntent)
-    } catch (e: ActivityNotFoundException) {
-        e.printStackTrace()
-    }
-}
-
-/**
- * This function takes the Netstore package and fetches its latest version
- * from the store using a deep link
- */
-fun updateNetstoreToLatestVersion(context: Context) {
-    val browserIntent: Intent?
-    try {
-        browserIntent = Intent(
-            Intent.ACTION_VIEW,
-            Uri.parse("https://www.store.net_box.ir/store=$NET_STORE_PACKAGE_NAME")
-        )
-        browserIntent.setPackage(NET_STORE_PACKAGE_NAME)
-        context.startActivity(browserIntent)
-    } catch (e: ActivityNotFoundException) {
-        e.printStackTrace()
-    }
 }
