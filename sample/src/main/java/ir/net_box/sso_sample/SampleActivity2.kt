@@ -29,7 +29,7 @@ class SampleActivity2 : AppCompatActivity() {
             loginButton.apply {
                 isVisible = true
                 setOnClickListener {
-                    NetboxClient.startLauncherSignIn(applicationContext) {
+                    NetboxClient.startLauncherSignIn(this@SampleActivity2) {
                         // If you are using 'startActivityForResult' make use of the following code
                         try {
                             startActivityForResult(netboxSigningIntent, NetboxClient.NETBOX_SSO_REQ_CODE)
