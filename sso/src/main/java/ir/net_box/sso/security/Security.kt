@@ -12,7 +12,7 @@ import java.io.InputStream
 import java.security.PublicKey
 import java.security.cert.CertificateFactory
 import java.security.cert.X509Certificate
-import java.util.*
+import java.util.Locale
 
 object Security {
     fun verifyLauncherIsInstalled(context: Context): Boolean {

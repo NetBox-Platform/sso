@@ -1,6 +1,7 @@
 package ir.net_box.sso.core
 
 import android.content.Context
+import android.content.Intent
 
 interface Client {
     /**
