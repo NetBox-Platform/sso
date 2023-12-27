@@ -41,7 +41,7 @@ New gradle:
 Step 2. Add the dependency
 
 	dependencies {
-	        implementation 'com.github.NetBox-Platform:sso:0.0.4'
+	        implementation 'com.github.NetBox-Platform:sso:0.0.5'
 	}
 	
 ### How to use
