@@ -8,4 +8,6 @@ interface Client {
      * and ensuring the required version is installed
      */
     fun startLauncherSignIn(context: Context, onSsoButtonClicked: () -> Unit)
+
+    fun getSignInIntent(context: Context): Intent
 }

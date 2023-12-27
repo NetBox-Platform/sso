@@ -1,6 +1,9 @@
 package ir.net_box.sso.core
 
+import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
+import ir.net_box.sso.LAUNCHER_PACKAGE_NAME
 import ir.net_box.sso.MINIMUM_LAUNCHER_VERSION_SUPPORT
 import java.lang.IllegalStateException
 
