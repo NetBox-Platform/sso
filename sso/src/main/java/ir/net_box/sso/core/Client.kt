@@ -1,6 +1,7 @@
 package ir.net_box.sso.core
 
 import android.content.Context
+import android.content.Intent
 
 interface Client {
     /**
@@ -8,4 +9,6 @@ interface Client {
      * and ensuring the required version is installed
      */
     fun startLauncherSignIn(context: Context, onSsoButtonClicked: () -> Unit)
+
+    fun getSignInIntent(context: Context): Intent
 }

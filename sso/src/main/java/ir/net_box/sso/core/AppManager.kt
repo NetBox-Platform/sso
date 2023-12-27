@@ -10,7 +10,6 @@ import ir.net_box.sso.security.Security
 import ir.net_box.sso.util.getLauncherVersion
 import ir.net_box.sso.util.getNetstoreVersion
 import ir.net_box.sso.util.getPackageInfo
-import java.lang.IllegalStateException
 
 object AppManager {
 

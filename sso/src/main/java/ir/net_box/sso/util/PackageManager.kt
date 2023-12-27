@@ -5,23 +5,15 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.util.Log
 import androidx.core.content.pm.PackageInfoCompat
 import ir.net_box.sso.LAUNCHER_PACKAGE_NAME
 import ir.net_box.sso.NET_STORE_PACKAGE_NAME
 import java.util.Locale
 
 internal fun getPackageInfo(context: Context, packageName: String, flags: Int = 0) = try {
-    val packageManager = context.packageManager
-//    if (Build.VERSION.SDK_INT >= 33) {
-//        packageManager.getPackageInfo(
-//            packageName, PackageManager.PackageInfoFlags.of(flags.toLong())
-//        )
-//    } else {
-        @Suppress("DEPRECATION") packageManager.getPackageInfo(packageName, flags)
-//    }
+    context.packageManager.getPackageInfo(packageName, flags)
 } catch (e: Exception) {
-    Log.d("getPackageInfoError", "getPackageInfo: ${e.message}")
+    e.printStackTrace()
     null
 }
 
@@ -32,20 +24,10 @@ internal fun getAppName(context: Context) =
     )
 
 private fun PackageInfo.appName(context: Context, locale: Locale): String? = try {
-    val applicationInfo: ApplicationInfo
-
-//    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-//        applicationInfo = context.packageManager.getApplicationInfo(
-//            packageName,
-//            PackageManager.ApplicationInfoFlags.of(0)
-//        )
-//    } else {
-        @Suppress("DEPRECATION")
-        applicationInfo = context.packageManager.getApplicationInfo(
-            packageName,
-            PackageManager.GET_META_DATA
-        )
-//    }
+    val applicationInfo: ApplicationInfo = context.packageManager.getApplicationInfo(
+        packageName,
+        PackageManager.GET_META_DATA
+    )
     val configuration = Configuration()
     configuration.setLocale(locale)
 
@@ -72,7 +54,7 @@ fun getLauncherVersion(context: Context): Int {
                 it
             )
         }
-    return longVersionCode?.toInt() ?:-1
+    return longVersionCode?.toInt() ?: -1
 }
 
 fun getNetstoreVersion(context: Context): Int {
@@ -82,5 +64,5 @@ fun getNetstoreVersion(context: Context): Int {
                 it
             )
         }
-    return longVersionCode?.toInt() ?:-1
+    return longVersionCode?.toInt() ?: -1
 }
