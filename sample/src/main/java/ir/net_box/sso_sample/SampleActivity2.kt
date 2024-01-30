@@ -78,6 +78,11 @@ class SampleActivity2 : AppCompatActivity() {
                         else -> TODO()
                     }
                 }
+
+                // Get signature
+                resultIntent.getStringExtra(NetboxClient.SIGNATURE_ARG_KEY)?.let {
+                    Log.d("NetboxClient", "signature: $it")
+                }
             }
         }
     }
