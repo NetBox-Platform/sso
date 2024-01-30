@@ -43,5 +43,8 @@ object NetboxClient : Client {
     // Key to retrieve the status code message
     const val STATUS_CODE_MESSAGE_ARG_KEY = "status_message_arg_key"
 
+    // Key to retrieve the signature
+    const val SIGNATURE_ARG_KEY = "signature_key"
+
     const val NETBOX_SSO_REQ_CODE = 123
 }
