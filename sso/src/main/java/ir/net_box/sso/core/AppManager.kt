@@ -15,11 +15,11 @@ object AppManager {
 
     fun isNetboxLauncherInstalled(context: Context): Boolean =
         getPackageInfo(context, LAUNCHER_PACKAGE_NAME) != null &&
-                Security.verifyLauncherIsInstalled(context)
+                Security.verifyAppIsInstalled(context, LAUNCHER_PACKAGE_NAME)
 
     fun isNetstoreInstalled(context: Context): Boolean =
         getPackageInfo(context, NET_STORE_PACKAGE_NAME) != null &&
-                Security.verifyNetstoreIsInstalled(context)
+                Security.verifyAppIsInstalled(context, NET_STORE_PACKAGE_NAME)
 
     fun shouldUpdateNetboxLauncher(context: Context, minLauncherVersionCode: Int) =
         getLauncherVersion(context) < minLauncherVersionCode

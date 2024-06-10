@@ -15,64 +15,40 @@ import java.security.cert.X509Certificate
 import java.util.Locale
 
 object Security {
-    fun verifyLauncherIsInstalled(context: Context): Boolean {
-        val packageManager: PackageManager = context.packageManager
-        val packageName = LAUNCHER_PACKAGE_NAME
-
-        val signatures: Array<Signature> = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            val packageInfo = packageManager.getPackageInfo(
+    fun verifyAppIsInstalled(context: Context, packageName: String): Boolean {
+        val signatures = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            val packageInfo = context.packageManager.getPackageInfo(
                 packageName,
                 PackageManager.GET_SIGNING_CERTIFICATES
             )
             packageInfo.signingInfo.apkContentsSigners
         } else {
-            val packageInfo = packageManager.getPackageInfo(
+            val packageInfo = context.packageManager.getPackageInfo(
                 packageName,
                 PackageManager.GET_SIGNATURES
             )
             packageInfo.signatures
         }
 
-        for (sig in signatures) {
-            val input: InputStream = ByteArrayInputStream(sig.toByteArray())
-            val certificateFactory: CertificateFactory = CertificateFactory.getInstance("X509")
-            val certificate: X509Certificate =
+        for (signature in signatures) {
+            val input = ByteArrayInputStream(signature.toByteArray())
+            val certificateFactory = CertificateFactory.getInstance("X509")
+            val certificate =
                 certificateFactory.generateCertificate(input) as X509Certificate
-            val publicKey: PublicKey = certificate.publicKey
-            val certificateHex = byte2HexFormatted(publicKey.encoded)
-            if (BuildConfig.NETBOX_CERTIFICATE != certificateHex) {
-                return false
+            val certificateHex = byte2HexFormatted(certificate.publicKey.encoded)
+
+            val validCertificates = if (packageName == NET_STORE_PACKAGE_NAME) {
+                listOf(
+                    BuildConfig.NETBOX_CERTIFICATE,
+                    BuildConfig.NETBOX_PUBLIC_CERTIFICATE
+                )
+            } else {
+                listOf(
+                    BuildConfig.NETBOX_CERTIFICATE
+                )
             }
-        }
-        return true
-    }
 
-    fun verifyNetstoreIsInstalled(context: Context): Boolean {
-        val packageManager: PackageManager = context.packageManager
-        val packageName = NET_STORE_PACKAGE_NAME
-
-        val signatures: Array<Signature> = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            val packageInfo = packageManager.getPackageInfo(
-                packageName,
-                PackageManager.GET_SIGNING_CERTIFICATES
-            )
-            packageInfo.signingInfo.apkContentsSigners
-        } else {
-            val packageInfo = packageManager.getPackageInfo(
-                packageName,
-                PackageManager.GET_SIGNATURES
-            )
-            packageInfo.signatures
-        }
-
-        for (sig in signatures) {
-            val input: InputStream = ByteArrayInputStream(sig.toByteArray())
-            val certificateFactory: CertificateFactory = CertificateFactory.getInstance("X509")
-            val certificate: X509Certificate =
-                certificateFactory.generateCertificate(input) as X509Certificate
-            val publicKey: PublicKey = certificate.publicKey
-            val certificateHex = byte2HexFormatted(publicKey.encoded)
-            if (BuildConfig.NETBOX_CERTIFICATE != certificateHex) {
+            if (certificateHex !in validCertificates) {
                 return false
             }
         }

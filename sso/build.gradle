@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'maven-publish'
+    id 'kotlin-parcelize'
 }
 
 def netboxProperties = new Properties()
@@ -21,6 +22,7 @@ android {
 
     buildTypes.each {
         it.buildConfigField 'String', 'NETBOX_CERTIFICATE', "\"${netboxProperties.getProperty('netboxHexCertificate')}\""
+        it.buildConfigField 'String', 'NETBOX_PUBLIC_CERTIFICATE', "\"${netboxProperties.getProperty('netboxPublicHexCertificate')}\""
     }
 
     buildTypes {
