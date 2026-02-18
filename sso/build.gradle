@@ -10,11 +10,11 @@ file("netbox.properties").withInputStream { netboxProperties.load(it) }
 
 android {
     namespace 'ir.net_box.sso'
-    compileSdk 28
+    compileSdk 34
 
     defaultConfig {
         minSdk 21
-        targetSdk 28
+        targetSdk 34
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -40,15 +40,17 @@ android {
     }
     buildFeatures{
         viewBinding true
+        buildConfig true
     }
 }
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.core:core-ktx:1.10.0'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation "org.jetbrains.kotlin:kotlin-test:2.1.0"
 
-//    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'junit:junit:4.13.2'
 //    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
 //    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
