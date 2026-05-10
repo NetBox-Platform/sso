@@ -23,5 +23,5 @@ enum class SSOConfirmationStatus(val status: Int, val message: String) {
 }
 
 fun findSSOConfirmationStatusByCode(code: Int): SSOConfirmationStatus? {
-    return SSOConfirmationStatus.values().find { it.status == code }
+    return SSOConfirmationStatus.entries.find { it.status == code }
 }

@@ -10,6 +10,7 @@ import ir.net_box.sso.security.Security
 import ir.net_box.sso.util.getLauncherVersion
 import ir.net_box.sso.util.getNetstoreVersion
 import ir.net_box.sso.util.getPackageInfo
+import androidx.core.net.toUri
 
 object AppManager {
 
@@ -70,7 +71,7 @@ object AppManager {
         try {
             browserIntent = Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse("https://www.store.net_box.ir/store=$NET_STORE_PACKAGE_NAME")
+                "https://www.store.net_box.ir/store=$NET_STORE_PACKAGE_NAME".toUri()
             )
             browserIntent.setPackage(NET_STORE_PACKAGE_NAME)
             context.startActivity(browserIntent)
