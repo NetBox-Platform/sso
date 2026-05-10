@@ -3,31 +3,29 @@ package ir.net_box.sso.core
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import ir.net_box.sso.LAUNCHER_PACKAGE_NAME
-import ir.net_box.sso.MINIMUM_LAUNCHER_VERSION_SUPPORT
+import ir.net_box.sso.NET_STORE_PACKAGE_NAME
 
 object NetboxClient : Client {
 
-    override fun startLauncherSignIn(context: Context, onSsoButtonClicked: () -> Unit) {
-
-        if (AppManager.isNetboxLauncherInstalled(context)) {
-            if (!AppManager.shouldUpdateNetboxLauncher(context, MINIMUM_LAUNCHER_VERSION_SUPPORT)) {
-                onSsoButtonClicked()
+    override fun ensureNetstoreReadyForSignIn(context: Context, onSignInReady: () -> Unit) {
+        if (AppManager.isNetstoreInstalled(context)) {
+            if (!AppManager.shouldUpdateNetstore(context)) {
+                onSignInReady()
             } else {
-                AppManager.updateNetboxLauncher(context)
+                AppManager.updateNetstore(context)
             }
         } else {
-            throw IllegalStateException("This is not a netbox device or netstore is not installed!")
+            throw IllegalStateException("Netstore is not installed!")
         }
     }
 
     override fun getSignInIntent(context: Context): Intent {
         return Intent().apply {
-            // The app package should be sent along with an intent for identity verification
             putExtra(PACKAGE_NAME_ARG_KEY, context.packageName)
             component =
                 ComponentName.unflattenFromString(
-                    "$LAUNCHER_PACKAGE_NAME/$LAUNCHER_PACKAGE_NAME.ui.activities.SsoActivity"
+                    "$NET_STORE_PACKAGE_NAME/" +
+                            "$NET_STORE_PACKAGE_NAME.sso.presentation.view.SsoActivity"
                 )
         }
     }

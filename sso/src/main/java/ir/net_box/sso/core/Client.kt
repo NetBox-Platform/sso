@@ -5,10 +5,13 @@ import android.content.Intent
 
 interface Client {
     /**
-     * This function handles the final SSO codes after checking for launcher installation
-     * and ensuring the required version is installed
+     * Ensures Netstore is installed and up to date before starting the SSO sign-in flow.
+     *
+     * - If Netstore is not installed, throws IllegalStateException.
+     * - If Netstore must be updated, starts the update flow.
+     * - If everything is OK, invokes [onSignInReady].
      */
-    fun startLauncherSignIn(context: Context, onSsoButtonClicked: () -> Unit)
+    fun ensureNetstoreReadyForSignIn(context: Context, onSignInReady: () -> Unit)
 
     fun getSignInIntent(context: Context): Intent
 }

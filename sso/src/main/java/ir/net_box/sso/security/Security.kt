@@ -2,14 +2,10 @@ package ir.net_box.sso.security
 
 import android.content.Context
 import android.content.pm.PackageManager
-import android.content.pm.Signature
 import android.os.Build
 import ir.net_box.sso.BuildConfig
-import ir.net_box.sso.LAUNCHER_PACKAGE_NAME
 import ir.net_box.sso.NET_STORE_PACKAGE_NAME
 import java.io.ByteArrayInputStream
-import java.io.InputStream
-import java.security.PublicKey
 import java.security.cert.CertificateFactory
 import java.security.cert.X509Certificate
 import java.util.Locale
