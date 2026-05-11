@@ -51,6 +51,12 @@ Full examples are available in the links below:
 
 [Sample2](./sample/src/main/java/ir/net_box/sso_sample/NetboxLoginSampleActivity2.kt) (Using startActivityForResult)
 
+## Netbox SSO introduction
+
+See introduction doc:
+[SSO introduction](docs/introduction.md)
+
+
 ## Migration Notice (From 1.x.x to 2.0.0)
 
 Netbox Launcher based login has been replaced with Netstore.
