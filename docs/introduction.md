@@ -1,9 +1,3 @@
----
-id: introduction
-title: 1. معرفی
-sidebar_position: 1
-custom_edit_url: null
----
 # Netbox SSO (Single Sign-on)
 
 ## Introduction
