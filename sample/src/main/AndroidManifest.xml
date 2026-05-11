@@ -12,7 +12,7 @@
         android:theme="@style/Theme.Sso"
         tools:targetApi="31">
         <activity
-            android:name="ir.net_box.sso_sample.SampleActivity1"
+            android:name="ir.net_box.sso_sample.NetboxLoginSampleActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +22,7 @@
         </activity>
 
         <activity
-            android:name=".SampleActivity2"
+            android:name=".NetboxLoginSampleActivity2"
             android:exported="true" />
     </application>
 
