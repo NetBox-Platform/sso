@@ -47,13 +47,13 @@ Step 2. Add the dependency
 ### How to use
 Full examples are available in the links below:
 
-[Sample1](https://github.com/NetBox-Platform/sso/blob/move-sso-to-store/sample/src/main/java/ir/net_box/sso_sample/NetboxLoginSampleActivity.kt) (Using registerForActivityResult)
+[Sample1](./sample/src/main/java/ir/net_box/sso_sample/NetboxLoginSampleActivity.kt) (Using registerForActivityResult)
 
-[Sample2](https://github.com/NetBox-Platform/sso/blob/move-sso-to-store/sample/src/main/java/ir/net_box/sso_sample/NetboxLoginSampleActivity2.kt) (Using startActivityForResult)
+[Sample2](./sample/src/main/java/ir/net_box/sso_sample/NetboxLoginSampleActivity2.kt) (Using startActivityForResult)
 
 ## Migration Notice (From 1.x.x to 2.0.0)
 
 Netbox Launcher based login has been replaced with Netstore.
 
 See migration guide:
-[Migrate to v2.0.0](https://github.com/NetBox-Platform/sso/blob/move-sso-to-store/docs/migration-netstore.md)
+[Migrate to v2.0.0](docs/migration-netstore.md)
