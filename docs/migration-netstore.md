@@ -2,7 +2,7 @@
 
 In version 2.0.0, the SSO authentication flow has been migrated from the Netbox Launcher to **Netstore**. To ensure your application continues to work correctly, please update your integration by following the steps below.
 
-## 0. Update Dependency
+## 1. Update Dependency
 First, update the version of the Netbox SSO library in your `build.gradle` file.
 
 ```gradle
@@ -11,7 +11,7 @@ dependencies {
 }
 ```
 
-## 1. Update Installation Checks
+## 2. Update Installation Checks
 Previously, the SDK checked if the Netbox Launcher was installed. You must update this to check for **Netstore**.
 
 **Old (1.x.x):**
@@ -27,7 +27,7 @@ import ir.net_box.sso.core.AppManager
 if (AppManager.isNetstoreInstalled(this)) { ... }
 ```
 
-## 2. Update Sign-In Preparation Method
+## 3. Update Sign-In Preparation Method
 The method used to prepare the environment for sign-in has been renamed to reflect the shift to Netstore. Note that `ensureNetstoreReadyForSignIn` will now also handle prompting the user to update Netstore if it's outdated.
 
 **Old (1.x.x):**
@@ -76,7 +76,7 @@ NetboxClient.ensureNetstoreReadyForSignIn(this@NetboxLoginSampleActivity2) {
 }
 ```
 
-## 3. Restructure Activity Result Handling
+## 4. Restructure Activity Result Handling
 As a best practice in 2.0.0, you should verify the `statusCode` using `SSOConfirmationStatus` before attempting to parse the user's data.
 
 **Updated Flow Example:**
