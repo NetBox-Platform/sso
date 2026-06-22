@@ -1,18 +1,18 @@
 # Netbox SSO Migration Guide: Version 1.x.x to 2.0.0 (Launcher to Netstore)
 
-In version 2.0.0, the SSO authentication flow has been migrated from the Netbox Launcher to **Netstore**. To ensure your application continues to work correctly, please update your integration by following the steps below.
+In version 2.0.0, the SSO authentication flow has been migrated from the **Netbox Launcher** to **Netstore**. To ensure your application continues to work correctly, please update your integration by following the steps below.
 
 ## 1. Update Dependency
-First, update the version of the Netbox SSO library in your `build.gradle` file.
+Update the Netbox SSO library version in your `build.gradle` file:
 
 ```gradle
 dependencies {
-    implementation 'com.github.netbox-ir:sso-android-sdk:2.0.0'
+    implementation("com.github.netbox-ir:sso-android-sdk:2.0.0")
 }
 ```
 
 ## 2. Update Installation Checks
-Previously, the SDK checked if the Netbox Launcher was installed. You must update this to check for **Netstore**.
+The SDK now checks for the presence of Netstore instead of the Netbox Launcher.
 
 **Old (1.x.x):**
 ```kotlin
@@ -20,6 +20,7 @@ import ir.net_box.sso.core.AppManager
 
 if (AppManager.isNetboxLauncherInstalled(this)) { ... }
 ```
+
 **New (2.0.0):**
 ```kotlin
 import ir.net_box.sso.core.AppManager
@@ -28,7 +29,7 @@ if (AppManager.isNetstoreInstalled(this)) { ... }
 ```
 
 ## 3. Update Sign-In Preparation Method
-The method used to prepare the environment for sign-in has been renamed to reflect the shift to Netstore. Note that `ensureNetstoreReadyForSignIn` will now also handle prompting the user to update Netstore if it's outdated.
+The method used to prepare the environment for sign-in has been renamed to reflect the shift to Netstore. The new method, `ensureNetstoreReadyForSignIn`, also handles prompting the user to update Netstore if it is outdated.
 
 **Old (1.x.x):**
 ```kotlin
@@ -38,18 +39,18 @@ val netboxSignInIntent = NetboxClient.getSignInIntent(applicationContext)
 
 NetboxClient.startLauncherSignIn(this@SampleActivity1) {
     try {
-        resultLauncher.launch(netboxSigningIntent)
+        resultLauncher.launch(netboxSignInIntent)
     } catch (e: ActivityNotFoundException) {
         e.printStackTrace()
     }
 }
- --- OR ---
+--- OR ---
 NetboxClient.startLauncherSignIn(this@SampleActivity2) {
-     try {
-         startActivityForResult(netboxSigningIntent, NetboxClient.NETBOX_SSO_REQ_CODE)
-     } catch (e: ActivityNotFoundException) {
-         e.printStackTrace()
-     }
+    try {
+        startActivityForResult(netboxSignInIntent, NetboxClient.NETBOX_SSO_REQ_CODE)
+    } catch (e: ActivityNotFoundException) {
+        e.printStackTrace()
+    }
 }
 ```
 
@@ -61,7 +62,7 @@ val netboxSignInIntent = NetboxClient.getSignInIntent(applicationContext)
 
 NetboxClient.ensureNetstoreReadyForSignIn(this@NetboxLoginSampleActivity) {
     try {
-        resultLauncher.launch(netboxSignInIntent)
+        resultLauncher.launch(netboxSignInIntent) 
     } catch (e: ActivityNotFoundException) {
         Log.e(TAG, "Netstore not found", e)
     }
@@ -69,15 +70,15 @@ NetboxClient.ensureNetstoreReadyForSignIn(this@NetboxLoginSampleActivity) {
 --- OR ---
 NetboxClient.ensureNetstoreReadyForSignIn(this@NetboxLoginSampleActivity2) {
     try {
-        startActivityForResult(netboxSigningIntent, NetboxClient.NETBOX_SSO_REQ_CODE)
+        startActivityForResult(netboxSigningIntent, NetboxClient.NETBOX_SSO_REQ_CODE) 
     } catch (e: ActivityNotFoundException) {
         Log.e(TAG, "Netstore not found", e)
     }
 }
 ```
 
-## 4. Restructure Activity Result Handling
-As a best practice in 2.0.0, you should verify the `statusCode` using `SSOConfirmationStatus` before attempting to parse the user's data.
+## 4. Restructure Activity Result Handling (Recommended)
+In version 2.0.0, it is highly recommended to verify the `statusCode` using `SSOConfirmationStatus` *before* attempting to parse the user's data (like the phone number and signature). User data will only be available if the status is `SSOConfirmationStatus.OK`.
 
 **Updated Flow Example:**
 ```kotlin
@@ -85,7 +86,7 @@ import ir.net_box.sso.SSOConfirmationStatus
 import ir.net_box.sso.findSSOConfirmationStatusByCode
 import ir.net_box.sso.core.NetboxClient
 
-// inside onActivityResult or ActivityResultCallback
+// Inside onActivityResult or ActivityResultCallback
 data?.let { resultIntent ->
     val statusCode = resultIntent.getIntExtra(NetboxClient.STATUS_CODE_ARG_KEY, -1)
     
@@ -98,10 +99,10 @@ data?.let { resultIntent ->
             // Proceed with authenticated session
         }
         SSOConfirmationStatus.REJECT -> {
-            // User cancelled the login
+            // User canceled the login
         }
         SSOConfirmationStatus.REGULAR_PROFILE_WITH_OUT_PHONE_NUMBER -> {
-            // Handle specific error case
+            // Handle specific error case (e.g., guest profile)
         }
         else -> {
             // Handle other status codes
@@ -110,10 +111,13 @@ data?.let { resultIntent ->
 }
 ```
 
+---
+
 ## Summary of Key Changes
+
 | Feature | Version 1.x.x | Version 2.0.0 |
 | :--- | :--- | :--- |
 | **Target App** | Netbox Launcher | Netstore |
 | **Check Installation** | `isNetboxLauncherInstalled` | `isNetstoreInstalled` |
 | **Preparation Method** | `startLauncherSignIn` | `ensureNetstoreReadyForSignIn` |
-| **Status Verification**| (Manual Int check) | `findSSOConfirmationStatusByCode` |
+| **Status Verification** | Manual Int check | `findSSOConfirmationStatusByCode` |
