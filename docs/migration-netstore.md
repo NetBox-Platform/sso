@@ -7,7 +7,7 @@ Update the Netbox SSO library version in your `build.gradle` file:
 
 ```gradle
 dependencies {
-    implementation("com.github.netbox-ir:sso-android-sdk:2.0.0")
+    implementation("com.github.NetBox-Platform:sso:2.0.0")
 }
 ```
 
